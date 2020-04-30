@@ -10,11 +10,18 @@ add_message_files(
  dist.msg
  )
  
+add_service_files(
+  FILES
+  calculation.srv
+)
+
 generate_messages(
    DEPENDENCIES
   std_msgs
+  geometry_msgs
  )
 
+ 
  generate_dynamic_reconfigure_options(
   cfg/parameters.cfg
   
@@ -30,11 +37,8 @@ catkin_package(CATKIN_DEPENDS message_runtime)
 ## Build talker and listener
 include_directories(include ${catkin_INCLUDE_DIRS})
 
-
-
 add_executable(sub_front src/sub_front.cpp)
 target_link_libraries(sub_front ${catkin_LIBRARIES})
-
 
 add_executable(TF src/TF.cpp)
 target_link_libraries(TF ${catkin_LIBRARIES})
@@ -42,4 +46,12 @@ target_link_libraries(TF ${catkin_LIBRARIES})
 add_executable(distance_cal src/distance_cal.cpp)
 add_dependencies(distance_cal ${PROJECT_NAME}_gencfg)
 target_link_libraries(distance_cal ${catkin_LIBRARIES})
+
+add_executable(Service_client src/Service_client.cpp)
+add_dependencies(Service_client ${PROJECT_NAME}_gencfg)
+target_link_libraries(Service_client ${catkin_LIBRARIES})
+
+add_executable(Service_Server src/Service_Server.cpp)
+target_link_libraries(Service_Server ${catkin_LIBRARIES})
+add_dependencies(Service_Server ${catkin_EXPORTED_TARGETS})
 
