@@ -1,0 +1,22 @@
+<launch>
+
+	<group ns="front_car">
+		<node pkg="lla2enu" name="front_car" type="sub_front" output="screen" />
+	</group>
+
+	<group ns="obs_car">
+		<node pkg="lla2enu" name="obs_car" type="sub_front" output="screen">
+			<remap from="/swiftnav/front/gps_pose" to="/swiftnav/obs/gps_pose"/>
+			<remap from="front_data" to="obs_data"/>
+		</node>
+	</group>
+	
+	<node pkg="lla2enu" name="TF_broadcaster" type="TF" />
+	<node pkg="lla2enu" name="cal" type="distance_cal" output="screen" />
+	<node pkg='rosbag' type='play' name='bag' args="--clock $(find lla2enu)/project.bag" />
+
+	<param name="latitude_init" value= "45.621656127060326" type="double" />
+	<param name="longitude_init" value= "9.281552301307181" type="double" />
+	<param name="h0" value= "2.246166168948925e+02" type="double" />
+
+</launch>
