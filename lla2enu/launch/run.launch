@@ -11,10 +11,10 @@
 		</node>
 	</group>
 	
-	<?ignore <node pkg="lla2enu" name="TF_broadcaster" type="TF" />
-	  <node pkg="lla2enu" name="cal" type="distance_cal" output="screen" /> ?>
-	 <node pkg="lla2enu" name="Client" type="Service_client" />
+	 <node pkg="lla2enu" name="TF_broadcaster" type="TF" />
 	 <node pkg="lla2enu" name="Server" type="Service_Server" />
+	 <node pkg="lla2enu" name="Client" type="Service_client" />
+	 
 	<node pkg='rosbag' type='play' name='bag' args="--clock $(find lla2enu)/project.bag" />
 
 	<param name="latitude_init" value= "45.621656127060326" type="double" />
