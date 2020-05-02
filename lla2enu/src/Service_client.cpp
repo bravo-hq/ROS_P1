@@ -45,21 +45,20 @@ public:
         param_server.updateConfig(config);
         sync.reset(new Sync(MySyncPolicy(10), sub1, sub2));
         sync->registerCallback(boost::bind(&Client::callback, this, _1, _2));
+        higher_limit=n.getParam("/higher_threshold",higher_limit);
+        lower_limit=n.getParam("/lower_threshold",lower_limit);
     }
 
     void callback(const geometry_msgs::Vector3StampedConstPtr &msg1, const geometry_msgs::Vector3StampedConstPtr &msg2)
     {
-        ROS_INFO("recieved a message");
 
         srv.request.Car = *msg1;
         srv.request.Obs = *msg2;
 
-        ROS_INFO("msg has been set %f", srv.request.Obs.vector.x);
-
         if (client.call(srv))
         {
             double dist = srv.response.dist;
-            ROS_INFO("inside the call");
+
             if (isnan(dist))
             {
                 messagio.dist = NAN;

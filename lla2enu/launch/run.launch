@@ -20,5 +20,8 @@
 	<param name="latitude_init" value= "45.621656127060326" type="double" />
 	<param name="longitude_init" value= "9.281552301307181" type="double" />
 	<param name="h0" value= "2.246166168948925e+02" type="double" />
-
+	<?ignore
+	<param name="lower_threshold" value= "1" type="int" />
+	<param name="higher_threshold" value= "5" type="int" />
+	?>
 </launch>
